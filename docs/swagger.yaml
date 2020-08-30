@@ -1,0 +1,59 @@
+basePath: /api/v1
+definitions:
+  model.User:
+    properties:
+      name:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  license: {}
+  title: Golang api doc
+paths:
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: create a new user in db
+      parameters:
+      - description: Create user
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          headers:
+            Token:
+              description: qwerty
+              type: string
+          schema:
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            type: object
+      summary: CreateUser
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -1,10 +1,34 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"go_web_app/helpers"
+	"io/ioutil"
 
+	"github.com/gin-gonic/gin"
+)
+
+// CreateUser godoc
+// @Summary CreateUser
+// @Description create a new user in db
+// @Accept  json
+// @Produce  json
+// @Success 200 {object} object
+// @Header 200 {string} Token "qwerty"
+// @Failure 400 {object} object
+// @Failure 404 {object} object
+// @Failure 500 {object} object
+// @Param body body model.User true "Create user"
+// @Router /users [post]
 func CreateUser(c *gin.Context) {
+	body := c.Request.Body
+	x, _ := ioutil.ReadAll(body)
+
+	fmt.Printf("%s input\n", string(x))
+	res := helpers.CreateUser(x)
+	fmt.Printf("%s mongo\n", string(res))
 	c.JSON(200, gin.H{
-		"message": "user has been created",
+		"message": string(x),
 	})
 }
 
@@ -21,9 +45,9 @@ func GetUser(c *gin.Context) {
 }
 
 func GetUsers(c *gin.Context) {
-	c.JSON(200, gin.H{
-		"message": "Get all users",
-	})
+	d := helpers.GetUsers()
+	fmt.Print(string(d))
+	c.JSON(200, gin.H{"message": d})
 }
 
 func DeleteUser(c *gin.Context) {
