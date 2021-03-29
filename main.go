@@ -6,7 +6,6 @@ import (
 	_ "go_web_app/docs"
 	"go_web_app/routes"
 	"log"
-	"os"
 
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"
@@ -30,7 +29,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Error loading .env file")
 	}
-	clientOptions := options.Client().ApplyURI("mongodb://somdey:" + os.Getenv("dbPass") + "@ds125041.mlab.com:25041/go_web_app")
+	clientOptions := options.Client().ApplyURI("mongodb://localhost:27017/go_web_app")
 	client, err := mongo.Connect(context.TODO(), clientOptions)
 
 	if err != nil {
