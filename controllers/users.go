@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"go_web_app/helpers"
+	"go_web_app/users"
 	"io/ioutil"
 
 	"github.com/gin-gonic/gin"
@@ -25,7 +25,7 @@ func CreateUser(c *gin.Context) {
 	x, _ := ioutil.ReadAll(body)
 
 	fmt.Printf("%s input\n", string(x))
-	res := helpers.CreateUser(x)
+	res := users.CreateUser(x)
 	fmt.Printf("%s mongo\n", string(res))
 	c.JSON(200, gin.H{
 		"message": string(x),
@@ -39,13 +39,14 @@ func UpdateUser(c *gin.Context) {
 }
 
 func GetUser(c *gin.Context) {
+	fmt.Printf("Get user method called.")
 	c.JSON(200, gin.H{
 		"message": "Get a single user",
 	})
 }
 
 func GetUsers(c *gin.Context) {
-	d := helpers.GetUsers()
+	d := users.GetUsers()
 	fmt.Print(string(d))
 	c.JSON(200, gin.H{"message": d})
 }
